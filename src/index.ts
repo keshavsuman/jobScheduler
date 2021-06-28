@@ -12,7 +12,6 @@ app.use('/schedule',scheduleRoutes);
 cron.schedule('* * * * *',()=>{
     var currentDate = Date.now();
     console.log(moment(currentDate).unix());
-    console.log(moment(currentDate).add(1,'minute').unix());
     scheduleController.getTasks(moment(currentDate).unix());
 });
 
@@ -21,5 +20,5 @@ app.listen(9090,()=>{
 });
 
 app.get('/',(req:express.Request,res:express.Response)=>{
-    res.send('dfhfhg');
+    res.send('This is the API endPoint for cruspo Scheduler');
 });

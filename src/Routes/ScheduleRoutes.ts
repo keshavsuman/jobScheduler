@@ -13,11 +13,11 @@ const  scheduleRoutes = Router();
 *     "payload":"",
 *     "taskType":"",
 *     "scheduleType":"",
-*     "calbackUrl":""
+*     "callbackUrl":""
  *  }
  * 
  */
-scheduleRoutes.post('/schedule',scheduleController.createTask);
+scheduleRoutes.post('/create',scheduleController.createTask);
 /**
  *  method post
  * 

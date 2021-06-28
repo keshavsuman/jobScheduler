@@ -11,7 +11,7 @@ export async function createTask(req:Request,res:Response){
         
         var query =  "INSERT INTO tasks(taskName,creationTimestamp,scheduledTimestamp,payload,taskType,callbackUrl,scheduleType) value ?";
         
-        var arr = [["EMAIL",creationTimestamp,req.body.scheduleTimestamp,req.body.payLoad,req.body.taskType,req.body.apicallback,req.body.scheduleType]];
+        var arr = [["EMAIL",creationTimestamp,req.body.scheduledTimestamp,req.body.payload,req.body.taskType,req.body.callbackurl,req.body.scheduleType]];
         connection.query(query,[arr],(err,result,fields)=>{
             if(err){
                 res.status(401).send(err);
@@ -21,12 +21,12 @@ export async function createTask(req:Request,res:Response){
             }
         });
     } catch (error) {
-        res.send(error.message);
+        res.status(401).send(error.message);
     }
 }
 
 export async function getTasks(timestamp:number){
-    var query = "SELECT * FROM tasks WHERE scheduledTimestamp = ?";
+    var query = "SELECT * FROM tasks";
     connection.query(query,[timestamp],(err,result:Array<Task>,fields)=>{
         if(err)
         {
@@ -49,7 +49,6 @@ export async function getTasks(timestamp:number){
                     }
                 } catch (error) {
                     console.log(error.message);
-                    
                 }
             });
         }
@@ -68,7 +67,7 @@ export function reschedule(taskId:number,data:Task){
         }
         else{
             console.log(result);
-            return 'TASK_SCHEDULED';
+            return 'TASK_RESCHEDULED';
         }
     });
     } catch (error) {
